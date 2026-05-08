@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clima Frío Solutions – HVAC y Refrigeración Industrial</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #5BB8F5;
+    --rojo: #E8372A;
+    --negro: #0F0F0F;
+    --blanco: #FFFFFF;
+    --gris-claro: #F5F5F5;
+    --gris-medio: #E0E0E0;
+    --gris-texto: #555;
+    --azul-oscuro: #1A3A5C;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--blanco);
+    color: var(--negro);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    height: 44px;
+    width: auto;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--negro);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    position: relative;
+    transition: color .2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--rojo);
+    transition: width .3s;
+  }
+  .nav-links a:hover { color: var(--rojo); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--rojo);
+    color: var(--blanco) !important;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    transition: background .2s, transform .2s !important;
+  }
+  .nav-cta:hover { background: #c02b20 !important; transform: translateY(-1px); }
+  .nav-cta::after { display: none !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-left {
+    background: var(--negro);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(91,184,245,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--azul);
+    font-weight: 600;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp .8s .2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 7vw, 96px);
+    line-height: .95;
+    color: var(--blanco);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp .8s .4s forwards;
+  }
+  .hero-title span.rojo { color: var(--rojo); }
+  .hero-title span.azul { color: var(--azul); }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 420px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp .8s .6s forwards;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp .8s .8s forwards;
+  }
+
+  .btn-primary {
+    background: var(--rojo);
+    color: var(--blanco);
+    padding: 14px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .04em;
+    transition: background .2s, transform .2s;
+  }
+  .btn-primary:hover { background: #c02b20; transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: var(--blanco);
+    padding: 14px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: .04em;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-outline:hover { border-color: var(--azul); background: rgba(91,184,245,0.08); }
+
+  .hero-stat-row {
+    display: flex;
+    gap: 40px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    opacity: 0;
+    animation: fadeUp .8s 1s forwards;
+  }
+
+  .hero-stat strong {
+    display: block;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--azul);
+    line-height: 1;
+  }
+  .hero-stat span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  /* Hero right – visual panel */
+  .hero-right {
+    background: var(--azul-oscuro);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 30% 70%, rgba(232,55,42,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(91,184,245,0.3) 0%, transparent 50%);
+  }
+
+  /* Big decorative snowflake */
+  .deco-snowflake {
+    position: absolute;
+    font-size: 340px;
+    color: rgba(91,184,245,0.08);
+    user-select: none;
+    animation: spin 40s linear infinite;
+  }
+
+  .hero-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 48px;
+    max-width: 360px;
+    opacity: 0;
+    animation: fadeUp .8s 1s forwards;
+  }
+
+  .hero-card-icon {
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, var(--azul), var(--rojo));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  .hero-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--blanco);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .hero-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .hero-card-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .pill {
+    background: rgba(91,184,245,0.15);
+    border: 1px solid rgba(91,184,245,0.3);
+    color: var(--azul);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ── CLIENTES ── */
+  #clientes {
+    background: var(--gris-claro);
+    padding: 40px 60px;
+  }
+
+  .clientes-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+
+  .clientes-label {
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gris-texto);
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .clientes-logos {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cliente-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blanco);
+    border: 1px solid var(--gris-medio);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--negro);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow .2s, transform .2s;
+  }
+  .cliente-badge:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .cliente-badge .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--azul);
+  }
+
+  /* ── SERVICIOS ── */
+  #servicios {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: 64px;
+  }
+
+  .section-eyebrow {
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--rojo);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    color: var(--negro);
+  }
+
+  .section-title span { color: var(--azul); }
+
+  .section-sub {
+    font-size: 16px;
+    color: var(--gris-texto);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-top: 20px;
+  }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .servicio-card {
+    border: 1px solid var(--gris-medio);
+    border-radius: 12px;
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .3s, box-shadow .3s, transform .3s;
+    background: var(--blanco);
+  }
+
+  .servicio-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--azul), var(--rojo));
+    transform: scaleX(0);
+    transition: transform .3s;
+  }
+
+  .servicio-card:hover {
+    border-color: transparent;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+  }
+  .servicio-card:hover::before { transform: scaleX(1); }
+
+  .serv-icon {
+    width: 56px; height: 56px;
+    background: var(--gris-claro);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 28px;
+    transition: background .3s;
+  }
+  .servicio-card:hover .serv-icon { background: rgba(91,184,245,0.15); }
+
+  .servicio-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 16px;
+    color: var(--negro);
+  }
+
+  .servicio-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--gris-texto);
+    margin-bottom: 24px;
+  }
+
+  .serv-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .serv-lista li {
+    font-size: 13px;
+    color: var(--gris-texto);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .serv-lista li::before {
+    content: '→';
+    color: var(--azul);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── NOSOTROS ── */
+  #nosotros {
+    background: var(--negro);
+    padding: 100px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #nosotros::before {
+    content: '';
+    position: absolute;
+    bottom: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(91,184,245,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .nosotros-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .nosotros-left .section-eyebrow { color: var(--azul); }
+  .nosotros-left .section-title { color: var(--blanco); }
+  .nosotros-left .section-sub { color: rgba(255,255,255,0.55); margin-bottom: 40px; }
+
+  .beneficios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .beneficio-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 20px;
+    transition: background .2s;
+  }
+  .beneficio-item:hover { background: rgba(255,255,255,0.07); }
+
+  .beneficio-item .bi-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .beneficio-item p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+
+  .nosotros-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: background .2s, border-color .2s;
+  }
+  .stat-box:hover { background: rgba(91,184,245,0.1); border-color: rgba(91,184,245,0.3); }
+  .stat-box:nth-child(1) { grid-column: span 2; }
+
+  .stat-box .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--azul);
+  }
+  .stat-box .num.rojo { color: var(--rojo); }
+  .stat-box .lbl {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  /* ── FOTOS placeholder ── */
+  #galeria {
+    padding: 80px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  .foto-placeholder {
+    aspect-ratio: 4/3;
+    background: var(--gris-claro);
+    border: 2px dashed var(--gris-medio);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #aaa;
+    font-size: 13px;
+    transition: border-color .2s, background .2s;
+    cursor: pointer;
+  }
+  .foto-placeholder:hover { border-color: var(--azul); background: rgba(91,184,245,0.05); }
+  .foto-placeholder .ph-icon { font-size: 36px; }
+
+  .foto-real {
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .foto-real img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+  }
+
+  .foto-real:hover img { transform: scale(1.06); }
+
+  .foto-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 24px 20px 20px;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+
+  .foto-real:hover .foto-overlay { opacity: 1; }
+
+  .foto-overlay span {
+    color: var(--blanco);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .04em;
+  }
+
+  /* ── CONTACTO ── */
+  #contacto {
+    background: var(--gris-claro);
+    padding: 100px 60px;
+  }
+
+  .contacto-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contacto-info .section-title { margin-bottom: 24px; }
+  .contacto-info .section-sub { margin-bottom: 40px; }
+
+  .info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .info-icon {
+    width: 44px; height: 44px;
+    background: var(--blanco);
+    border: 1px solid var(--gris-medio);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .info-item-text strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--negro);
+    margin-bottom: 2px;
+  }
+  .info-item-text span {
+    font-size: 14px;
+    color: var(--gris-texto);
+  }
+
+  /* Formulario */
+  .form-card {
+    background: var(--blanco);
+    border-radius: 16px;
+    padding: 48px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.07);
+  }
+
+  .form-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .form-card p {
+    font-size: 14px;
+    color: var(--gris-texto);
+    margin-bottom: 32px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--negro);
+    letter-spacing: .02em;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1.5px solid var(--gris-medio);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--negro);
+    background: var(--blanco);
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+    width: 100%;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(91,184,245,0.12);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--rojo);
+    color: var(--blanco);
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: .04em;
+    transition: background .2s, transform .2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: #c02b20; transform: translateY(-2px); }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 32px;
+  }
+  .form-success .check { font-size: 48px; margin-bottom: 16px; }
+  .form-success h4 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px; }
+  .form-success p { color: var(--gris-texto); font-size: 14px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--negro);
+    padding: 60px 60px 32px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 32px;
+  }
+
+  .footer-brand img { height: 44px; width: auto; margin-bottom: 16px; }
+  .footer-brand p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col ul li a {
+    text-decoration: none;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    transition: color .2s;
+  }
+  .footer-col ul li a:hover { color: var(--azul); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-ruc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity .7s, transform .7s;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 100px 24px 60px; }
+    #servicios, #nosotros, #galeria, #contacto { padding: 60px 24px; }
+    .servicios-grid { grid-template-columns: 1fr; }
+    .nosotros-inner { grid-template-columns: 1fr; gap: 40px; }
+    .nosotros-right { grid-template-columns: 1fr 1fr; }
+    .stat-box:nth-child(1) { grid-column: span 2; }
+    .contacto-inner { grid-template-columns: 1fr; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    #clientes { padding: 32px 24px; }
+    .galeria-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="CLIMA_FRIO_SOLUTIONS_LOGO.png" alt="Clima Frío Solutions">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#galeria">Proyectos</a></li>
+    <li><a href="#clientes">Clientes</a></li>
+    <li><a href="#contacto" class="nav-cta">Solicitar cotización</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Especialistas en HVAC & Refrigeración</p>
+    <h1 class="hero-title">
+      SOLUCIONES<br>
+      TÉCNICAS EN<br>
+      <span class="azul">HVAC</span> &<br>
+      <span class="rojo">REFRIGERACIÓN</span>
+    </h1>
+    <p class="hero-desc">
+      Empresa peruana especializada en mantenimiento, instalación y enfriamiento industrial. Soluciones confiables para el sector comercial, industrial y residencial.
+    </p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Solicitar evaluación</a>
+      <a href="#servicios" class="btn-outline">Ver servicios</a>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <strong>300+</strong>
+        <span>Instalaciones</span>
+      </div>
+      <div class="hero-stat">
+        <strong>10+</strong>
+        <span>Años de exp.</span>
+      </div>
+      <div class="hero-stat">
+        <strong>100%</strong>
+        <span>Garantizadas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="deco-snowflake">❄</div>
+    <div class="hero-card">
+      <div class="hero-card-icon">❄️</div>
+      <h3>Soluciones a medida para tu negocio</h3>
+      <p>Diagnóstico, instalación y mantenimiento con estándares técnicos de primer nivel para operaciones exigentes.</p>
+      <div class="hero-card-pills">
+        <span class="pill">Mantenimiento HVAC</span>
+        <span class="pill">Instalación</span>
+        <span class="pill">Enfriamiento industrial</span>
+        <span class="pill">Diagnóstico técnico</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTES -->
+<section id="clientes">
+  <div class="clientes-inner">
+    <span class="clientes-label">Confían en nosotros</span>
+    <div class="clientes-logos">
+      <div class="cliente-badge"><span class="dot"></span> Otto Grill</div>
+      <div class="cliente-badge"><span class="dot" style="background:var(--rojo)"></span> Perú on Ice</div>
+      <div class="cliente-badge"><span class="dot"></span> Ripley</div>
+      <div class="cliente-badge"><span class="dot" style="background:var(--rojo)"></span> Aris</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Lo que hacemos</p>
+    <h2 class="section-title">NUESTROS <span>SERVICIOS</span></h2>
+    <p class="section-sub">Brindamos soluciones integrales de climatización con tecnología de punta y personal altamente calificado.</p>
+  </div>
+
+  <div class="servicios-grid">
+    <div class="servicio-card reveal">
+      <div class="serv-icon">🔧</div>
+      <h3>Mantenimiento HVAC</h3>
+      <p>Garantizamos el óptimo funcionamiento de tus sistemas de climatización mediante programas preventivos y correctivos.</p>
+      <ul class="serv-lista">
+        <li>Mantenimiento preventivo y correctivo</li>
+        <li>Diagnóstico y detección de fallas</li>
+        <li>Limpieza técnica de equipos</li>
+        <li>Ajuste y calibración de sistemas</li>
+      </ul>
+    </div>
+
+    <div class="servicio-card reveal" style="transition-delay:.1s">
+      <div class="serv-icon">⚙️</div>
+      <h3>Instalación de Sistemas</h3>
+      <p>Diseñamos e instalamos sistemas de climatización adaptados a las necesidades específicas de cada proyecto.</p>
+      <ul class="serv-lista">
+        <li>Instalación de equipos de climatización</li>
+        <li>Puesta en marcha y pruebas</li>
+        <li>Verificación de funcionamiento</li>
+        <li>Capacitación al personal</li>
+      </ul>
+    </div>
+
+    <div class="servicio-card reveal" style="transition-delay:.2s">
+      <div class="serv-icon">🏭</div>
+      <h3>Enfriamiento Industrial</h3>
+      <p>Soluciones especializadas en refrigeración y control térmico para procesos industriales de alta demanda.</p>
+      <ul class="serv-lista">
+        <li>Sistemas de refrigeración industrial</li>
+        <li>Optimización térmica de procesos</li>
+        <li>Soporte técnico especializado</li>
+        <li>Monitoreo y control de temperatura</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="nosotros-inner">
+    <div class="nosotros-left reveal">
+      <p class="section-eyebrow">Quiénes somos</p>
+      <h2 class="section-title">EXPERTOS EN<br><span style="color:var(--azul)">CLIMATIZACIÓN</span></h2>
+      <p class="section-sub">Somos una empresa peruana especializada en mantenimiento de sistemas HVAC y enfriamiento industrial. Brindamos servicios para el sector comercial, industrial y residencial, con énfasis en soluciones confiables y eficientes para operaciones exigentes.</p>
+
+      <div class="beneficios-grid">
+        <div class="beneficio-item">
+          <div class="bi-icon">⏳</div>
+          <p>Mayor vida útil de los equipos</p>
+        </div>
+        <div class="beneficio-item">
+          <div class="bi-icon">📉</div>
+          <p>Reducción de fallas y paradas operativas</p>
+        </div>
+        <div class="beneficio-item">
+          <div class="bi-icon">💡</div>
+          <p>Ahorro energético y costos operativos</p>
+        </div>
+        <div class="beneficio-item">
+          <div class="bi-icon">✅</div>
+          <p>Cumplimiento de estándares técnicos</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="nosotros-right reveal" style="transition-delay:.15s">
+      <div class="stat-box">
+        <div class="num">300+</div>
+        <div class="lbl">Instalaciones y mantenimientos realizados</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">10+</div>
+        <div class="lbl">Años en el mercado</div>
+      </div>
+      <div class="stat-box">
+        <div class="num rojo">3</div>
+        <div class="lbl">Líneas de servicio especializado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Nuestros proyectos</p>
+    <h2 class="section-title">EN <span style="color:var(--azul)">ACCIÓN</span></h2>
+    <p class="section-sub">Próximamente compartiremos fotos de nuestras instalaciones y proyectos realizados.</p>
+  </div>
+
+  <div class="galeria-grid">
+    <div class="foto-real reveal">
+      <img src="foto1.jpg" alt="Diagnóstico técnico equipo Trane">
+      <div class="foto-overlay">
+        <span>Diagnóstico técnico — Chiller Trane</span>
+      </div>
+    </div>
+    <div class="foto-real reveal" style="transition-delay:.1s">
+      <img src="foto2.jpg" alt="Mantenimiento Chiller Carrier – Aris Industrial">
+      <div class="foto-overlay">
+        <span>Chiller Carrier — Aris Industrial</span>
+      </div>
+    </div>
+    <div class="foto-real reveal" style="transition-delay:.2s">
+      <img src="foto3.jpg" alt="Proyecto de enfriamiento industrial">
+      <div class="foto-overlay">
+        <span>Enfriamiento industrial</span>
+      </div>
+    </div>
+    <div class="foto-placeholder reveal" style="transition-delay:.1s">
+      <span class="ph-icon">📸</span>
+      <span>Próximamente</span>
+    </div>
+    <div class="foto-placeholder reveal" style="transition-delay:.2s">
+      <span class="ph-icon">📸</span>
+      <span>Próximamente</span>
+    </div>
+    <div class="foto-placeholder reveal" style="transition-delay:.3s">
+      <span class="ph-icon">📸</span>
+      <span>Próximamente</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-inner">
+    <div class="contacto-info reveal">
+      <p class="section-eyebrow">Hablemos</p>
+      <h2 class="section-title">SOLICITA TU<br><span style="color:var(--rojo)">COTIZACIÓN</span></h2>
+      <p class="section-sub">Cuéntanos sobre tu proyecto y nuestro equipo técnico te contactará para brindarte la mejor solución.</p>
+
+      <div class="info-items">
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-item-text">
+            <strong>Correo electrónico</strong>
+            <span>ventas@climafriosolutions.com</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div class="info-item-text">
+            <strong>Teléfono / WhatsApp</strong>
+            <span>983 421 023</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🇵🇪</div>
+          <div class="info-item-text">
+            <strong>Ubicación</strong>
+            <span>Lima, Perú</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🏢</div>
+          <div class="info-item-text">
+            <strong>RUC</strong>
+            <span>20612044865</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card reveal" style="transition-delay:.15s">
+      <div id="form-content">
+        <h3>Solicitar evaluación técnica</h3>
+        <p>Completa el formulario y te respondemos en menos de 24 horas.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" id="f-nombre" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Empresa</label>
+            <input type="text" id="f-empresa" placeholder="Nombre de empresa">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Teléfono *</label>
+            <input type="tel" id="f-tel" placeholder="9XX XXX XXX">
+          </div>
+          <div class="form-group">
+            <label>Correo electrónico *</label>
+            <input type="email" id="f-email" placeholder="correo@empresa.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Servicio requerido *</label>
+          <select id="f-servicio">
+            <option value="">Selecciona un servicio...</option>
+            <option>Mantenimiento HVAC</option>
+            <option>Instalación de sistemas</option>
+            <option>Enfriamiento industrial</option>
+            <option>Diagnóstico técnico</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Mensaje / Descripción del proyecto</label>
+          <textarea id="f-mensaje" placeholder="Cuéntanos brevemente sobre tu necesidad o proyecto..."></textarea>
+        </div>
+
+        <button class="form-submit" onclick="enviarFormulario()">Enviar solicitud →</button>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="check">✅</div>
+        <h4>¡Mensaje enviado!</h4>
+        <p>Gracias por contactarnos. Nuestro equipo técnico se comunicará contigo en menos de 24 horas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="CLIMA_FRIO_SOLUTIONS_LOGO.png" alt="Clima Frío Solutions">
+      <p>Empresa peruana especializada en HVAC y refrigeración industrial. Soluciones técnicas confiables para el sector comercial e industrial.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#servicios">Mantenimiento HVAC</a></li>
+        <li><a href="#servicios">Instalación</a></li>
+        <li><a href="#servicios">Enfriamiento industrial</a></li>
+        <li><a href="#servicios">Diagnóstico técnico</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#nosotros">Quiénes somos</a></li>
+        <li><a href="#clientes">Clientes</a></li>
+        <li><a href="#galeria">Proyectos</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="mailto:ventas@climafriosolutions.com">ventas@climafriosolutions.com</a></li>
+        <li><a href="tel:+51983421023">983 421 023</a></li>
+        <li><a href="#contacto">Lima, Perú</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Clima Frío Solutions. Todos los derechos reservados.</p>
+    <p class="footer-ruc">RUC: 20612044865</p>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Formulario
+  function enviarFormulario() {
+    const nombre = document.getElementById('f-nombre').value.trim();
+    const tel = document.getElementById('f-tel').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const servicio = document.getElementById('f-servicio').value;
+
+    if (!nombre || !tel || !email || !servicio) {
+      alert('Por favor completa los campos obligatorios (*)');
+      return;
+    }
+
+    // Simulación de envío — aquí se conecta con EmailJS, Formspree, etc.
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
