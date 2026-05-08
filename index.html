@@ -340,11 +340,9 @@
     width: auto;
     max-width: 120px;
     object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: filter .3s, opacity .3s;
+    transition: transform .3s;
   }
-  .cliente-logo-img:hover img { filter: grayscale(0%); opacity: 1; }
+  .cliente-logo-img:hover img { transform: scale(1.05); }
 
   /* ── SERVICIOS ── */
   #servicios {
@@ -878,7 +876,7 @@
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#galeria">Proyectos</a></li>
+    <li><a href="#galeria">Nuestro trabajo</a></li>
     <li><a href="#clientes">Clientes</a></li>
     <li><a href="#contacto" class="nav-cta">Solicitar cotización</a></li>
   </ul>
@@ -1036,8 +1034,8 @@
         <div class="lbl">Años de experiencia de nuestros técnicos</div>
       </div>
       <div class="stat-box">
-        <div class="num rojo">2024</div>
-        <div class="lbl">Año de fundación de la empresa</div>
+        <div class="num">9+</div>
+        <div class="lbl">Clientes en diferentes sectores</div>
       </div>
     </div>
   </div>
@@ -1046,8 +1044,8 @@
 <!-- GALERIA -->
 <section id="galeria">
   <div class="section-header reveal">
-    <p class="section-eyebrow">Nuestros proyectos</p>
-    <h2 class="section-title">EN <span style="color:var(--azul)">ACCIÓN</span></h2>
+    <p class="section-eyebrow">Nuestro trabajo</p>
+    <h2 class="section-title">EQUIPOS <span style="color:var(--azul)">QUE OPERAMOS</span></h2>
   </div>
 
   <div class="galeria-grid galeria-3">
@@ -1191,7 +1189,7 @@
       <ul>
         <li><a href="#nosotros">Quiénes somos</a></li>
         <li><a href="#clientes">Clientes</a></li>
-        <li><a href="#galeria">Proyectos</a></li>
+        <li><a href="#galeria">Nuestro trabajo</a></li>
       </ul>
     </div>
 
