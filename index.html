@@ -54,6 +54,24 @@
     height: 44px;
     width: auto;
   }
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .nav-logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--negro);
+    letter-spacing: .06em;
+  }
+  .nav-logo-sub {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+  }
   .nav-links {
     display: flex;
     gap: 36px;
@@ -872,6 +890,10 @@
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <img src="CLIMA_FRIO_SOLUTIONS_LOGO.png" alt="Clima Frío Solutions">
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">CLIMA FRÍO</span>
+      <span class="nav-logo-sub">SOLUTIONS</span>
+    </div>
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
@@ -909,8 +931,8 @@
         <span>Años exp. técnicos</span>
       </div>
       <div class="hero-stat">
-        <strong>100%</strong>
-        <span>Garantizadas</span>
+        <strong>Lima</strong>
+        <span>Para todo el Perú</span>
       </div>
     </div>
   </div>
@@ -1027,15 +1049,15 @@
     <div class="nosotros-right reveal" style="transition-delay:.15s">
       <div class="stat-box">
         <div class="num">300+</div>
-        <div class="lbl">Instalaciones y mantenimientos realizados</div>
+        <div class="lbl">Instalaciones y mantenimientos</div>
       </div>
       <div class="stat-box">
         <div class="num">10+</div>
-        <div class="lbl">Años de experiencia de nuestros técnicos</div>
+        <div class="lbl">Años de experiencia técnica</div>
       </div>
       <div class="stat-box">
-        <div class="num">9+</div>
-        <div class="lbl">Clientes en diferentes sectores</div>
+        <div class="num" style="font-size:36px">Lima</div>
+        <div class="lbl">Para todo el Perú</div>
       </div>
     </div>
   </div>
