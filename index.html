@@ -294,16 +294,15 @@
   /* ── CLIENTES ── */
   #clientes {
     background: var(--gris-claro);
-    padding: 40px 60px;
+    padding: 48px 60px;
   }
 
   .clientes-inner {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
-    gap: 48px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .clientes-label {
@@ -318,31 +317,34 @@
 
   .clientes-logos {
     display: flex;
-    gap: 40px;
+    gap: 24px;
     align-items: center;
     flex-wrap: wrap;
   }
 
-  .cliente-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .cliente-logo-img {
     background: var(--blanco);
     border: 1px solid var(--gris-medio);
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--negro);
+    border-radius: 10px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     transition: box-shadow .2s, transform .2s;
+    height: 64px;
   }
-  .cliente-badge:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
-  .cliente-badge .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--azul);
+  .cliente-logo-img:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+  .cliente-logo-img img {
+    height: 36px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: filter .3s, opacity .3s;
   }
+  .cliente-logo-img:hover img { filter: grayscale(0%); opacity: 1; }
 
   /* ── SERVICIOS ── */
   #servicios {
@@ -936,10 +938,15 @@
   <div class="clientes-inner">
     <span class="clientes-label">Confían en nosotros</span>
     <div class="clientes-logos">
-      <div class="cliente-badge"><span class="dot"></span> Otto Grill</div>
-      <div class="cliente-badge"><span class="dot" style="background:var(--rojo)"></span> Perú on Ice</div>
-      <div class="cliente-badge"><span class="dot"></span> Ripley</div>
-      <div class="cliente-badge"><span class="dot" style="background:var(--rojo)"></span> Aris</div>
+      <div class="cliente-logo-img"><img src="logo-ottogrill.jpg" alt="Otto Grill"></div>
+      <div class="cliente-logo-img"><img src="logo-peruonice.jpeg" alt="Perú on Ice"></div>
+      <div class="cliente-logo-img"><img src="logo-ripley.png" alt="Ripley"></div>
+      <div class="cliente-logo-img"><img src="logo-aris.png" alt="Aris"></div>
+      <div class="cliente-logo-img"><img src="logo-summa.png" alt="Summa Real Estate"></div>
+      <div class="cliente-logo-img"><img src="logo-grv.webp" alt="GRV Corporativa"></div>
+      <div class="cliente-logo-img"><img src="logo-fiberlux.webp" alt="Fiberlux"></div>
+      <div class="cliente-logo-img"><img src="logo-alopecia.png" alt="Alopecia"></div>
+      <div class="cliente-logo-img"><img src="logo-diagnostica.png" alt="Diagnóstica Peruana"></div>
     </div>
   </div>
 </section>
