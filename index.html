@@ -780,6 +780,29 @@
 
   .form-group textarea { resize: vertical; min-height: 120px; }
 
+  .form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .form-consent input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    accent-color: var(--azul);
+    cursor: pointer;
+  }
+  .form-consent label {
+    font-size: 13px;
+    color: var(--gris-texto);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .form-consent a { color: var(--azul-oscuro); text-decoration: underline; }
+  .form-consent a:hover { color: var(--azul); }
+
   .form-submit {
     width: 100%;
     background: var(--rojo);
@@ -860,6 +883,14 @@
     color: rgba(255,255,255,0.3);
   }
 
+  .footer-bottom a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .footer-bottom a:hover { color: var(--azul); }
+
   .footer-ruc {
     font-size: 12px;
     color: rgba(255,255,255,0.3);
@@ -931,17 +962,6 @@
   "sameAs": ["https://www.instagram.com/climafriosolutions.pe"]
 }
 </script>
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1366975862084260');
-fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1366975862084260&ev=PageView&noscript=1"/></noscript>
 </head>
 <body>
 
@@ -1237,6 +1257,11 @@ src="https://www.facebook.com/tr?id=1366975862084260&ev=PageView&noscript=1"/></
           <textarea id="f-mensaje" placeholder="Cuéntanos brevemente sobre tu necesidad o proyecto..."></textarea>
         </div>
 
+        <div class="form-consent">
+          <input type="checkbox" id="f-consent">
+          <label for="f-consent">He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de Privacidad y Cookies</a>, y autorizo el tratamiento de mis datos para atender mi solicitud. *</label>
+        </div>
+
         <button class="form-submit" onclick="enviarFormulario()">Enviar por WhatsApp →</button>
       </div>
 
@@ -1288,6 +1313,7 @@ src="https://www.facebook.com/tr?id=1366975862084260&ev=PageView&noscript=1"/></
 
   <div class="footer-bottom">
     <p>© 2026 Clima Frío Solutions. Todos los derechos reservados.</p>
+    <p><a href="privacidad.html">Política de Privacidad y Cookies</a></p>
     <p class="footer-ruc">RUC: 20612044865</p>
   </div>
 </footer>
@@ -1322,6 +1348,11 @@ src="https://www.facebook.com/tr?id=1366975862084260&ev=PageView&noscript=1"/></
 
     if (!nombre || !tel || !email || !servicio) {
       alert('Por favor completa los campos obligatorios (*)');
+      return;
+    }
+
+    if (!document.getElementById('f-consent').checked) {
+      alert('Para enviar tu solicitud debes aceptar la Política de Privacidad.');
       return;
     }
 
@@ -1396,6 +1427,172 @@ document.addEventListener('click', function(e){
   var a = e.target.closest('a[href*="wa.me"], a[href^="tel:"]');
   if (a && typeof fbq === 'function') { fbq('track','Contact'); }
 }, true);
+</script>
+<!-- BANNER DE COOKIES / CONSENTIMIENTO PREVIO (Ley 29733, D.S. 016-2024-JUS) -->
+<style>
+  .cookie-banner {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 1000;
+    background: var(--blanco);
+    border-top: 1px solid var(--gris-medio);
+    box-shadow: 0 -6px 32px rgba(0,0,0,0.10);
+    padding: 22px 60px;
+    animation: cookie-in .35s ease-out;
+  }
+  .cookie-banner[hidden] { display: none; }
+
+  @keyframes cookie-in {
+    from { opacity: 0; transform: translateY(100%); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .cookie-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .cookie-text strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--negro);
+    margin-bottom: 6px;
+  }
+  .cookie-text p {
+    font-size: 13px;
+    color: var(--gris-texto);
+    line-height: 1.6;
+    max-width: 680px;
+  }
+  .cookie-text a { color: var(--azul-oscuro); text-decoration: underline; }
+  .cookie-text a:hover { color: var(--azul); }
+
+  .cookie-actions { display: flex; gap: 12px; flex-shrink: 0; }
+
+  .cookie-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    padding: 13px 28px;
+    min-width: 136px;
+    border: 1.5px solid var(--negro);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .cookie-btn:hover { transform: translateY(-1px); }
+  .cookie-btn:focus-visible { outline: 3px solid rgba(91,184,245,0.5); outline-offset: 2px; }
+
+  .cookie-rechazar { background: var(--blanco); color: var(--negro); }
+  .cookie-rechazar:hover { background: var(--gris-claro); }
+  .cookie-aceptar { background: var(--azul); color: var(--negro); border-color: var(--azul); }
+  .cookie-aceptar:hover { background: #46a9ea; }
+
+  body.cookie-abierto .whatsapp-btn { bottom: 168px; }
+
+  @media (max-width: 860px) {
+    .cookie-banner { padding: 20px; }
+    .cookie-inner { flex-direction: column; align-items: stretch; gap: 18px; }
+    .cookie-actions { justify-content: stretch; }
+    .cookie-btn { flex: 1; min-width: 0; }
+    body.cookie-abierto .whatsapp-btn { bottom: 230px; }
+  }
+</style>
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-labelledby="cookie-titulo" aria-describedby="cookie-desc" hidden>
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <strong id="cookie-titulo">Cookies de medición publicitaria</strong>
+      <p id="cookie-desc">Si aceptas, cargaremos el píxel de Meta para medir el rendimiento de nuestros anuncios. Si rechazas, no se descargará ningún archivo de terceros y el sitio funcionará igual. Puedes cambiar tu decisión cuando quieras desde la <a href="privacidad.html">Política de Privacidad y Cookies</a>.</p>
+    </div>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-rechazar" id="cookie-rechazar">Rechazar</button>
+      <button type="button" class="cookie-btn cookie-aceptar" id="cookie-aceptar">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var CLAVE = 'cf_consentimiento_cookies';
+  var PIXEL_ID = '1366975862084260';
+  var VIGENCIA_MESES = 12;
+
+  var banner = document.getElementById('cookie-banner');
+
+  // El pixel solo se descarga aqui: nada de Meta se carga antes de un "Aceptar".
+  function cargarPixel() {
+    if (window.fbq) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', PIXEL_ID);
+    fbq('track', 'PageView');
+  }
+
+  function leerDecision() {
+    try {
+      var crudo = localStorage.getItem(CLAVE);
+      if (!crudo) return null;
+      var d = JSON.parse(crudo);
+      var meses = (Date.now() - d.fecha) / (1000 * 60 * 60 * 24 * 30.44);
+      if (meses > VIGENCIA_MESES) return null;   // caducada: se vuelve a preguntar
+      return d.valor;
+    } catch (e) {
+      return null;   // modo privado o almacenamiento bloqueado
+    }
+  }
+
+  function guardarDecision(valor) {
+    try {
+      localStorage.setItem(CLAVE, JSON.stringify({ valor: valor, fecha: Date.now() }));
+    } catch (e) { /* sin almacenamiento: la decision vale solo para esta visita */ }
+  }
+
+  function mostrar() {
+    banner.hidden = false;
+    document.body.classList.add('cookie-abierto');
+  }
+
+  function ocultar() {
+    banner.hidden = true;
+    document.body.classList.remove('cookie-abierto');
+  }
+
+  document.getElementById('cookie-aceptar').addEventListener('click', function () {
+    guardarDecision('aceptado');
+    ocultar();
+    cargarPixel();
+  });
+
+  document.getElementById('cookie-rechazar').addEventListener('click', function () {
+    guardarDecision('rechazado');
+    ocultar();
+    // No se carga nada. fbq queda sin definir y los eventos no se disparan.
+  });
+
+  // Permite volver a elegir desde la politica de privacidad.
+  window.reabrirBannerCookies = function () {
+    try { localStorage.removeItem(CLAVE); } catch (e) {}
+    mostrar();
+    banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  var decision = leerDecision();
+  if (decision === 'aceptado') {
+    cargarPixel();
+  } else if (decision !== 'rechazado') {
+    mostrar();
+  }
+})();
 </script>
 </body>
 </html>
